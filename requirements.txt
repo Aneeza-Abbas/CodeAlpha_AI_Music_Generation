@@ -1,0 +1,6 @@
+Flask
+numpy
+scipy
+pretty_midi
+music21
+tensorflow==2.21.0
