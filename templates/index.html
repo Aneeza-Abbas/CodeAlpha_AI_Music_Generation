@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Music Studio | CodeAlpha</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Arial, sans-serif;
+        color: #f5f3ff;
+        background: linear-gradient(135deg, #101027, #25204b, #111827);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 25px;
+      }
+
+      .studio {
+        width: 100%;
+        max-width: 760px;
+        padding: 42px;
+        border: 1px solid #514b83;
+        border-radius: 22px;
+        background: rgba(25, 24, 54, 0.94);
+        box-shadow: 0 20px 65px rgba(0, 0, 0, 0.4);
+        text-align: center;
+      }
+
+      .icon {
+        font-size: 55px;
+      }
+
+      h1 {
+        font-size: 34px;
+        margin: 12px 0;
+      }
+
+      .subtitle {
+        color: #c5c0e9;
+        line-height: 1.7;
+      }
+
+      .tag {
+        display: inline-block;
+        margin: 18px 0;
+        padding: 8px 16px;
+        border-radius: 30px;
+        background: #332e62;
+        color: #d9d3ff;
+        font-size: 13px;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin: 28px 0;
+      }
+
+      .feature {
+        background: #29264d;
+        border-radius: 12px;
+        padding: 17px 8px;
+        color: #ddd8ff;
+        font-size: 13px;
+      }
+
+      button,
+      .download {
+        display: inline-block;
+        border: 0;
+        border-radius: 12px;
+        padding: 16px 28px;
+        background: linear-gradient(90deg, #8b5cf6, #6366f1);
+        color: white;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        text-decoration: none;
+        margin: 8px;
+      }
+
+      button:hover,
+      .download:hover {
+        opacity: 0.88;
+      }
+
+      .message {
+        margin: 24px 0;
+        padding: 16px;
+        border-radius: 12px;
+        background: #243b35;
+        color: #b8f5d7;
+      }
+
+      .player {
+        margin-top: 25px;
+        padding: 20px;
+        border-radius: 14px;
+        background: #29264d;
+      }
+
+      audio {
+        width: 100%;
+        margin-top: 15px;
+      }
+
+      footer {
+        margin-top: 32px;
+        color: #aaa5cc;
+        font-size: 12px;
+      }
+
+      @media (max-width: 550px) {
+        .studio {
+          padding: 25px 18px;
+        }
+        h1 {
+          font-size: 27px;
+        }
+        .features {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="studio">
+      <div class="icon">🎵</div>
+
+      <h1>AI Music Studio</h1>
+
+      <p class="subtitle">
+        Create original music using an LSTM-based deep learning model. Generate
+        new musical patterns with artificial intelligence.
+      </p>
+
+      <div class="tag">AI-POWERED MUSIC CREATION</div>
+
+      <section class="features">
+        <div class="feature">🧠<br /><br />LSTM Deep Learning</div>
+        <div class="feature">🎹<br /><br />Original Music</div>
+        <div class="feature">💾<br /><br />MIDI & WAV Audio</div>
+      </section>
+
+      <form method="POST">
+        <button type="submit">✨ Generate Music</button>
+      </form>
+
+      {% if message %}
+      <div class="message">{{ message }}</div>
+      {% endif %} {% if filename and wav_filename %}
+
+      <div class="player">
+        <h3>🎧 Your AI-Generated Music</h3>
+
+        <audio controls>
+          <source
+            src="{{ url_for('play', filename=wav_filename) }}"
+            type="audio/wav"
+          />
+          Your browser does not support audio playback.
+        </audio>
+
+        <p>Listen to your newly generated music above.</p>
+      </div>
+
+      <a class="download" href="{{ url_for('download', filename=filename) }}">
+        ⬇ Download MIDI
+      </a>
+
+      <a
+        class="download"
+        href="{{ url_for('download', filename=wav_filename) }}"
+      >
+        ⬇ Download WAV
+      </a>
+
+      {% endif %}
+
+      <footer>AI Music Generation · LSTM Model · Python & Flask</footer>
+    </main>
+  </body>
+</html>
